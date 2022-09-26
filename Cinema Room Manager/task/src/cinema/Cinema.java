@@ -10,24 +10,35 @@ public class Cinema {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the number of rows:");
         int rowNum = sc.nextInt();
-        System.out.println("Enter the number of seats in each row:");
+        System.out.println("Enter the number of seats in each row:\n");
         int seatNum = sc.nextInt();
 
         String[][] cinemaRoom = new String[rowNum][seatNum];
         for (String[] seat : cinemaRoom)
             Arrays.fill(seat, "S");
+        boolean stop = false;
+        do {
+            System.out.println("1. Show the seats\n2. Buy a ticket\n0. Exit");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 0:
+                    stop = true;
+                    break;
+                case 1:
+                    printCinema(cinemaRoom, rowNum, seatNum);
+                    break;
+                case 2:
+                    System.out.println("\nEnter a row number:");
+                    int xPlace = sc.nextInt();
+                    System.out.println("Enter a seat number in that row:");
+                    int yPlace = sc.nextInt();
 
-        printCinema(cinemaRoom, rowNum, seatNum);
-
-        System.out.println("Enter a row number:");
-        int xPlace = sc.nextInt();
-        System.out.println("Enter a seat number in that row:");
-        int yPlace = sc.nextInt();
-
-        int ticketPrice = ticketPrice(cinemaRoom, rowNum, seatNum, xPlace, yPlace );
-        System.out.println();
-        System.out.println("Ticket price: $" + ticketPrice);
-        printCinema(cinemaRoom, rowNum, seatNum);
+                    int ticketPrice = ticketPrice(cinemaRoom, rowNum, seatNum, xPlace, yPlace);
+                    System.out.println();
+                    System.out.println("Ticket price: $" + ticketPrice);
+                    break;
+            }
+        } while (!stop);
     }
 
     static void printCinema(String[][] cinemaRoom, int row, int seat) {
@@ -57,27 +68,8 @@ public class Cinema {
                 price = 8;
             }
         }
-        cinemaRoom[xPlace -1][yPlaye -1] = "B";
+        cinemaRoom[xPlace - 1][yPlaye - 1] = "B";
         return price;
     }
 
-
-    /* static void totalIncome() {
-        java.util.Scanner sc = new java.util.Scanner(System.in);
-        System.out.println("Enter the number of rows:");
-        int row = sc.nextInt();
-        System.out.println("Enter the number of seats in each row:");
-        int seat = sc.nextInt();
-        int totalSeat = row * seat;
-        int totalIncome = 0;
-        if (totalSeat > 60) {
-            int frontRow = row / 2;
-            int backRow = row - frontRow;
-            totalIncome = (frontRow * 10 + backRow * 8) * seat;
-        } else {
-            totalIncome = totalSeat * 10;
-        }
-
-        System.out.println("Total income:\n$" + totalIncome);
-    }*/
 }
